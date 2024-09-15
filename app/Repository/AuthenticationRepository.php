@@ -4,11 +4,12 @@ namespace App\Repository;
 
 use App\Models\User;
 use App\Repository\Interface\AuthenticationRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface
 {
     public $user;
-    function __contruct(User $user){
+    function __construct(User $user){
         $this->user = $user;
     }
 
@@ -16,13 +17,12 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface
         return $this->user::create($data);
     }
 
-    public function login(array $data){
-
-
+    public function login(array $credentials){
+        return Auth::attempt($credentials);
     }
 
     public function logout(){
-
+        return Auth::logout();
     }
 }
 ?>
